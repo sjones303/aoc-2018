@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"flag"
 	"fmt"
 	"os"
@@ -11,22 +12,26 @@ import (
 
 func main() {
 	flag.Parse()
-	in, err := parse(flag.Args())
+
+	f, err := os.Open(flag.Arg(0))
 	if err != nil {
 		fmt.Fprint(os.Stderr, err)
 		os.Exit(1)
 	}
-	fmt.Printf("sum: %d\n", freq.Sum(in))
-}
+	defer f.Close()
 
-func parse(in []string) ([]int, error) {
-	out := make([]int, len(in))
-	for i, v := range in {
-		var err error
-		out[i], err = strconv.Atoi(v)
+	var (
+		s  = bufio.NewScanner(f)
+		in []int
+	)
+	for s.Scan() {
+		v, err := strconv.Atoi(s.Text())
 		if err != nil {
-			return nil, fmt.Errorf("arg %d: %v", i, err)
+			fmt.Fprint(os.Stderr, err)
+			os.Exit(1)
 		}
+		in = append(in, v)
 	}
-	return out, nil
+
+	fmt.Printf("sum: %d\n", freq.Sum(in))
 }
