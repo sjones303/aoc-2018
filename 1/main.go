@@ -33,5 +33,6 @@ func main() {
 		in = append(in, v)
 	}
 
-	fmt.Printf("sum: %d\n", freq.Sum(in))
+	fmt.Printf("sum:   %d\n", freq.Sum(in))
+	fmt.Printf("match: %d\n", freq.Match(in))
 }
