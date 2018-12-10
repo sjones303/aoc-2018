@@ -24,3 +24,22 @@ func TestSum(t *testing.T) {
 		})
 	}
 }
+
+func TestMatch(t *testing.T) {
+	for i, td := range []struct {
+		in  []int
+		exp int
+	}{
+		{[]int{1, -2, 3, 1}, 2},
+		{[]int{1, -1}, 0},
+		{[]int{3, 3, 4, -2, -4}, 10},
+		{[]int{-6, 3, 8, 5, -6}, 5},
+		{[]int{7, 7, -2, -7, -4}, 14},
+	} {
+		t.Run(fmt.Sprintf("Input%d", i), func(t *testing.T) {
+			if act := freq.Match(td.in); act != td.exp {
+				t.Errorf("act = %d, want %d", act, td.exp)
+			}
+		})
+	}
+}

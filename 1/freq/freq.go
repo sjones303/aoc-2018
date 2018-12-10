@@ -11,3 +11,7 @@ func sum(f int, r []int) int {
 	}
 	return sum(v, r[1:])
 }
+
+func Match(in []int) int {
+	return 0
+}
