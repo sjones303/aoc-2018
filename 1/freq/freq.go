@@ -13,5 +13,15 @@ func sum(f int, r []int) int {
 }
 
 func Match(in []int) int {
-	return 0
+	f := make(map[int]struct{}, 10000)
+	f[0] = struct{}{}
+	t := 0
+	for i := 0; ; i++ {
+		v := in[i % len(in)]
+		t += v
+		if _, ok := f[t]; ok {
+			return t
+		}
+		f[t] = struct{}{}
+	}
 }
