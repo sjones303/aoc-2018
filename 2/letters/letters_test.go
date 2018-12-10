@@ -31,3 +31,35 @@ func TestCount(t *testing.T) {
 		})
 	}
 }
+
+func TestHamming1(t *testing.T) {
+	type info struct {
+		v string
+		m bool
+	}
+	in := []info{
+		{"abcde", false},
+		{"fghij", true},
+		{"klmno", false},
+		{"pqrst", false},
+		{"fguij", true},
+		{"axcye", false},
+		{"wvxyz", false},
+	}
+	for i, v1 := range in[:len(in)-1] {
+		for j, v2 := range in[i+1:] {
+			t.Run(fmt.Sprintf("Input%d-%d", i, j+i+1),
+				func(t *testing.T) {
+					var (
+						act = letters.Hamming1(v1.v, v2.v)
+						exp = v1.m && v2.m
+					)
+					if act != exp {
+						t.Errorf("act = %t, want %t",
+							act, exp)
+					}
+				},
+			)
+		}
+	}
+}
