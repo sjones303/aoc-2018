@@ -32,20 +32,20 @@ func TestCount(t *testing.T) {
 	}
 }
 
-func TestFirstMatch(t *testing.T) {
+func TestFirstDiff(t *testing.T) {
 	for i, td := range []struct {
 		in1, in2 string
 		exp      int
 	}{
-		{"aaaaaa", "aaaaaa", 0},
-		{"aaaaaa", "baaaaa", 1},
-		{"aaaaaa", "bcaaaa", 2},
-		{"aaaaaa", "bcdefg", -1},
-		{"baaaaa", "aaaaaa", 1},
-		{"bbbbba", "aaaaaa", 5},
+		{"aaaaaa", "aaaaaa", -1},
+		{"aaaaaa", "baaaaa", 0},
+		{"aaaaaa", "acaaaa", 1},
+		{"aaaaaa", "aaabca", 3},
+		{"abaaaa", "aaaaaa", 1},
+		{"aaaaab", "aaaaaa", 5},
 	} {
 		t.Run(fmt.Sprintf("Input%d", i), func(t *testing.T) {
-			m := letters.FirstMatch(td.in1, td.in2)
+			m := letters.FirstDiff(td.in1, td.in2)
 			if td.exp < 0 {
 				if m >= 0 {
 					t.Fatalf("m = %d, want %d", m, td.exp)

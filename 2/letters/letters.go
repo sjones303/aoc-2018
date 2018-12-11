@@ -19,13 +19,13 @@ func Count(in string) (c2, c3 bool) {
 	return c2, c3
 }
 
-func FirstMatch(in1, in2 string) int {
+func FirstDiff(in1, in2 string) int {
 	var (
 		r1 = []rune(in1)
 		r2 = []rune(in2)
 	)
 	for i, v1 := range r1 {
-		if v1 == r2[i] {
+		if v1 != r2[i] {
 			return i
 		}
 	}
