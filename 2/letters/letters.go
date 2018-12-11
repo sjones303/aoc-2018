@@ -20,5 +20,14 @@ func Count(in string) (c2, c3 bool) {
 }
 
 func FirstMatch(in1, in2 string) int {
-	return 0
+	var (
+		r1 = []rune(in1)
+		r2 = []rune(in2)
+	)
+	for i, v1 := range r1 {
+		if v1 == r2[i] {
+			return i
+		}
+	}
+	return -1
 }
