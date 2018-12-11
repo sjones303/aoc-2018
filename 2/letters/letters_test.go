@@ -32,34 +32,28 @@ func TestCount(t *testing.T) {
 	}
 }
 
-func TestHamming1(t *testing.T) {
-	type info struct {
-		v string
-		m bool
-	}
-	in := []info{
-		{"abcde", false},
-		{"fghij", true},
-		{"klmno", false},
-		{"pqrst", false},
-		{"fguij", true},
-		{"axcye", false},
-		{"wvxyz", false},
-	}
-	for i, v1 := range in[:len(in)-1] {
-		for j, v2 := range in[i+1:] {
-			t.Run(fmt.Sprintf("Input%d-%d", i, j+i+1),
-				func(t *testing.T) {
-					var (
-						act = letters.Hamming1(v1.v, v2.v)
-						exp = v1.m && v2.m
-					)
-					if act != exp {
-						t.Errorf("act = %t, want %t",
-							act, exp)
-					}
-				},
-			)
-		}
+func TestFirstMatch(t *testing.T) {
+	for i, td := range []struct {
+		in1, in2 string
+		exp      int
+	}{
+		{"aaaaaa", "aaaaaa", 0},
+		{"aaaaaa", "baaaaa", 1},
+		{"aaaaaa", "bcaaaa", 2},
+		{"aaaaaa", "bcdefg", -1},
+		{"baaaaa", "aaaaaa", 1},
+		{"bbbbba", "aaaaaa", 5},
+	} {
+		t.Run(fmt.Sprintf("Input%d", i), func(t *testing.T) {
+			m := letters.FirstMatch(td.in1, td.in2)
+			if td.exp < 0 {
+				if m >= 0 {
+					t.Fatalf("m = %d, want %d", m, td.exp)
+				}
+			}
+			if m != td.exp {
+				t.Fatalf("m = %d, want %d", m, td.exp)
+			}
+		})
 	}
 }

@@ -19,6 +19,6 @@ func Count(in string) (c2, c3 bool) {
 	return c2, c3
 }
 
-func Hamming1(in1, in2 string) bool {
-	return false
+func FirstMatch(in1, in2 string) int {
+	return 0
 }
