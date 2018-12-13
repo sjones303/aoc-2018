@@ -1,6 +1,9 @@
 package fabric
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type Fabric struct {
 	record [][]int
@@ -38,4 +41,17 @@ func (f *Fabric) Mark(p Piece) error {
 		}
 	}
 	return nil
+}
+
+func (f *Fabric) Print() {
+	for _, r := range f.record {
+		for _, v := range r {
+			s := "."
+			if v > 0 {
+				s = strconv.Itoa(v)
+			}
+			fmt.Print(s)
+		}
+		fmt.Print("\n")
+	}
 }
