@@ -6,7 +6,7 @@ import (
 )
 
 type Fabric struct {
-	record [][]int
+	Record [][]int
 	w, h   int
 }
 
@@ -16,7 +16,7 @@ func New(w, h int) Fabric {
 		r[i] = make([]int, w)
 	}
 	return Fabric{
-		record: r,
+		Record: r,
 		w:      w,
 		h:      h,
 	}
@@ -37,14 +37,14 @@ func (f *Fabric) Mark(p Piece) error {
 	}
 	for x := 0; x < p.W; x++ {
 		for y := 0; y < p.H; y++ {
-			f.record[y+p.T][x+p.L]++
+			f.Record[y+p.T][x+p.L]++
 		}
 	}
 	return nil
 }
 
 func (f *Fabric) Print() {
-	for _, r := range f.record {
+	for _, r := range f.Record {
 		for _, v := range r {
 			s := "."
 			if v > 0 {

@@ -20,7 +20,7 @@ func main() {
 	defer file.Close()
 
 	var (
-		f = fabric.New(8, 8)
+		f = fabric.New(1000, 1000)
 		s = bufio.NewScanner(file)
 		l = 0
 	)
@@ -45,5 +45,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	f.Print()
+	count := 0
+	for _, r := range f.Record {
+		for _, v := range r {
+			if v > 1 {
+				count++
+			}
+		}
+	}
+	fmt.Printf("overlap: %d\n", count)
 }
