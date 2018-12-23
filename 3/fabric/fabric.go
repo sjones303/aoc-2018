@@ -43,6 +43,10 @@ func (f *Fabric) Mark(p Piece) error {
 	return nil
 }
 
+func (f *Fabric) ListClaims() map[int][]int {
+	return nil
+}
+
 func (f *Fabric) Print() {
 	for _, r := range f.Record {
 		for _, v := range r {

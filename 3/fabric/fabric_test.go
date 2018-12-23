@@ -2,6 +2,7 @@ package fabric
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -89,5 +90,36 @@ func newPiece(td markTD) Piece {
 		T: td.t,
 		W: td.w,
 		H: td.h,
+	}
+}
+
+func TestListClaims(t *testing.T) {
+	f := New(8, 8)
+	mark := func(p Piece) {
+		t.Helper()
+		err := f.Mark(p)
+		if err != nil {
+			t.Fatalf("unable to mark: %v", err)
+		}
+	}
+	mark(Piece{ID: 1, L: 1, T: 3, W: 4, H: 4})
+	mark(Piece{ID: 2, L: 3, T: 1, W: 4, H: 4})
+	mark(Piece{ID: 3, L: 5, T: 5, W: 2, H: 2})
+
+	cs := f.ListClaims()
+
+	for i, exp := range [][]int{
+		{2},
+		{1},
+		{},
+	} {
+		act, ok := cs[i+1]
+		if !ok {
+			t.Errorf("claim %d not found", i+1)
+			continue
+		}
+		if !reflect.DeepEqual(act, exp) {
+			t.Errorf("claim %d = %d, want %d", i+1, act, exp)
+		}
 	}
 }
