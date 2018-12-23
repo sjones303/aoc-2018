@@ -72,9 +72,10 @@ func TestMark(t *testing.T) {
 					t.Fatalf("unexpected error: %v", err)
 				}
 			}
+			record := f.Record()
 			for y, r := range td.exp {
 				for x, exp := range r {
-					if act := f.Record[y][x]; act != exp {
+					if act := record[y][x]; act != exp {
 						t.Errorf("(%d,%d) = %d, want %d",
 							x, y, act, exp)
 					}
