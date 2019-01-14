@@ -46,7 +46,7 @@ func main() {
 	}
 
 	count := 0
-	for _, r := range f.Record {
+	for _, r := range f.Record() {
 		for _, v := range r {
 			if v > 1 {
 				count++
@@ -54,4 +54,11 @@ func main() {
 		}
 	}
 	fmt.Printf("overlap: %d\n", count)
+
+	fmt.Println("=========== unique claims ==============")
+	for c, m := range f.ListClaims() {
+		if len(m) == 0 {
+			fmt.Printf("claim: %d\n", c)
+		}
+	}
 }
